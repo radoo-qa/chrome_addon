@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Package settings Extension",
+  "description": "Hello World!",
+  "version": "1.0",
+  "options_page": "options.html",
+  "permissions": ["storage"],
+  "action": {
+    "default_title": "Package Extension",
+    "default_popup": "popup.html"
+  }
+}
