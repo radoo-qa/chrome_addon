@@ -1,19 +1,15 @@
 console.log("Extension is working");
-const weightInput = document.getElementById("weight-input");
+const timeInput = document.getElementById("time-input");
 const saveBtn = document.getElementById("save-btn");
 
 saveBtn.addEventListener("click", () => {
-  const weight = weightInput.value;
-  chrome.storage.sync.set(
-    {
-      weight,
-    },
-    () => {
-      console.log(`Weight is set to ${weight}`);
-    }
-  );
+  const notificationTime = timeInput.value;
+  chrome.storage.sync.set({
+    notificationTime,
+  });
 });
 
-chrome.storage.sync.get(["weight"], (res) => {
-  weightInput.value = res.weight;
+// time from storage to input placeholder
+chrome.storage.sync.get(["notificationTime"]).then((result) => {
+  timeInput.value = result.notificationTime ?? 1000;
 });

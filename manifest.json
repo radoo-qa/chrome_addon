@@ -1,12 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "Package settings Extension",
-  "description": "Hello World!",
+  "name": "Timer Extension",
+  "description": "My first chrome extension",
   "version": "1.0",
   "options_page": "options.html",
-  "permissions": ["storage"],
+  "permissions": ["storage", "alarms", "notifications"],
   "action": {
-    "default_title": "Package Extension",
+    "default_title": "Timer Extension",
     "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
   }
 }

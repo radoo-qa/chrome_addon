@@ -1,18 +1,38 @@
 const timeElement = document.getElementById("time");
-const weightElement = document.getElementById("weight");
+const timerElement = document.getElementById("timer");
 
-const currentTime = new Date().toLocaleTimeString();
-timeElement.textContent = `The time is: ${currentTime}`;
+function updateTimeElement() {
+  chrome.storage.local.get(["timer"], (res) => {
+    const timer = res.timer ?? 0;
+    timerElement.textContent = `The timer is at: ${timer} sec`;
+  });
 
-chrome.action.setBadgeText(
-  {
-    text: "TIME",
-  },
-  () => {
-    console.log("Finised setting badge text.");
-  }
-);
+  const currentTime = new Date().toLocaleTimeString();
+  timeElement.textContent = `The time is: ${currentTime}`;
+}
 
-chrome.storage.sync.get(["weight"], (res) => {
-  weightElement.textContent = `Weight is set to: ${res.weight}`;
+updateTimeElement();
+setInterval(updateTimeElement, 1000);
+
+const startBtn = document.getElementById("start-timer");
+const stopBtn = document.getElementById("stop-timer");
+const resetBtn = document.getElementById("reset-timer");
+
+startBtn.addEventListener("click", () => {
+  chrome.storage.local.set({
+    isRunning: true,
+  });
+});
+
+stopBtn.addEventListener("click", () => {
+  chrome.storage.local.set({
+    isRunning: false,
+  });
+});
+
+resetBtn.addEventListener("click", () => {
+  chrome.storage.local.set({
+    timer: 0,
+    isRunning: false,
+  });
 });
